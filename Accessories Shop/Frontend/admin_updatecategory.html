@@ -103,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             let categoryById = result.data.data;
                             document.getElementById('adminContent').innerHTML = `
                             <h3 class="title_component">CẬP NHẬT LOẠI SẢN PHẨM</h3>
-                            <form action="accessories1.herokuapp.com/insert_category" class="form-add" method="POST">
+                            <form action="localhost:3000/insert_category" class="form-add" method="POST">
                                 <p>Tên mục sản phẩm</p>
                                 <input type="text" class="input_el" value="${categoryById.name}" id="nameCategory" required>
                                 <p>Mô tả</p>
