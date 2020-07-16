@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile</title>
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!--custom styles-->
+        
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link href="fontawesome/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/header.css">
+        <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="js/host.js"></script>
+        <script>
+            var token = localStorage.getItem('token');
+            if(!token) {
+                location.assign('./login.html')
+            }
+        </script>
+    </head>
+    <body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a></li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 " >
+                    <ul class="left" id="accountLogin">
+                        
+                    </ul>
+                    <script>
+                        var token = localStorage.getItem('token');
+                        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                        if (token) {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./profile.html#profile"><i class="fas fa-user"></i>${userInfo.userName.slice(0,8)}</a>
+                            </li>
+                            <li class="menu-item" >
+                                <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                            </li>`
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                    <script>
+                        function logout() {
+                            
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('userInfo');
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                            location.replace('./home.html')
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div id="header-middle">
+
+    </div>
+    <script src="js/header_middle.js"></script>
+    <!-- HEADER NAV -->
+    <div id="header-nav">
+        
+    </div>
+    <script src="js/header_nav.js"></script>
+    <!-- main -->
+    <div class="profile" id="profile">
+        <div class="container">
+            <h1 class="title-head">Profile</h1>
+            <div class="box-profile">
+                <div class="box1-profile">
+                    <img src="images/avatar.png" alt="avatar" class="avatar">
+                </div>
+                <div class="box2-profile" id="infoUser">
+                    
+                </div>
+                <script>
+                    if (token) {
+                            document.getElementById('infoUser').innerHTML = `
+                                <h2 class="name-profile">${userInfo.userName}</h2>
+                                <p class="des-profile"><i class="fas fa-home"></i> : ${userInfo.userAddress}</p>
+                                <p class="des-profile"><i class="far fa-envelope"></i> :${userInfo.userEmail} </p>
+                                <p class="des-profile"><i class="fas fa-phone-alt"></i> : 0${userInfo.userPhone}</p>
+                            `
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                                <h2 class="name-profile">Elfie Julia</h2>
+                                <p class="des-profile"><i class="fas fa-home"></i> : 270 Orchard Rd, Singapore 238857</p>
+                                <p class="des-profile"><i class="far fa-envelope"></i> : elfiejulia@gmail.com</p>
+                                <p class="des-profile"><i class="fas fa-phone-alt"></i> : 028 135 135 135</p>
+                            `
+                        }
+                </script>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <div id="footer">
+            
+    </div>
+    <script src="js/footer.js"></script>
+    <script>
+        function search(e) {
+            if (e.keyCode == 13) {
+                let text = e.target.value;
+                //console.log(text);
+                if (!text)
+                    return;
+                text = text.trim();
+                var keyword = {
+                    name: text
+                }
+                localStorage.setItem('searchKey', text);
+                e.target.value = '';
+                location.assign('./search.html');
+            }
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--custom styles-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="fontawesome/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="js/host.js"></script>
+</head>
+
+<body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a>
+                        </li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 ">
+                    <ul class="left" id="accountLogin">
+
+                    </ul>
+                    <script>
+                        var token = localStorage.getItem('token');
+                        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                        if (token) {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./profile.html#profile"><i class="fas fa-user"></i>${userInfo.userName.slice(0, 8)}</a>
+                            </li>
+                            <li class="menu-item" >
+                                <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                            </li>`
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                    <script>
+                        function logout() {
+
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('userInfo');
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                            //location.replace('login.html#login')
+
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div id="header-middle">
+
+    </div>
+    <script src="js/header_middle.js"></script>
+    <!-- HEADER NAV -->
+    <div id="header-nav">
+
+    </div>
+    <script src="js/header_nav.js"></script>
+    <!-- main -->
+    <!-- SUPPORT -->
+    <div class="support">
+        <div class="container">
+            <h1 class="title-head">SUPPORT</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="box">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="box-des">
+                    <h4 class="title">Free Shipping</h4>
+                    <p class="des">Free worldwide shipping on all Area order</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="box">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <div class="box-des">
+                    <h4 class="title">7 Days Easy Return</h4>
+                    <p class="des">Product any fault within 07 days for an </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="box">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="box-des">
+                    <h4 class="title">24/7 Friendly Support</h4>
+                    <p class="des">FOur Support Team Always Ready For You</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CONTACT US -->
+    <div class="contact-us" id="contact">
+        <div class="container">
+            <h1 class="title-head">CONTACT US</h1>
+            <h4 class="contact-des">We’re ready to provide any information you may need</h4>
+            <div class="formsupport">
+                <h3>Contact Form</h3>
+                <form action="accessories1.herokuapp.com/post_contact" id="form" method="POST">
+
+                </form>
+                <script>
+                    var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                    if (userInfo) {
+                        document.getElementById('form').innerHTML = `
+                        <!--User name-->
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="Enter your name" name="username" id="username" value="${userInfo.userName}" disabled required>
+                        </div>
+                        <!--Email-->
+                        <div class="form-group">
+                            <input type="email" class="form-control"  placeholder="Enter your email" name="email" value="${userInfo.userEmail}" disabled id="email" required>
+                        </div>
+                        <!--Phone-->
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="Enter your phone" name="phone" value="0${userInfo.userPhone}" disabled id="phone" minlength="10" maxlength="11" required>
+                        </div>
+                        <!--More information -->
+                        <div class="form-group">
+                            <textarea id="content" name="content" class="form-control" placeholder="Can we help you... ?"required></textarea>
+                        </div>
+                        <!-- Submit -->
+                        <button type="submit" class="submit" onclick="sendContact()">SEND</button>
+                        `
+                    }else{
+                        document.getElementById('form').innerHTML = `
+                        <!--User name-->
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="Enter your name" name="username" id="username"  required>
+                        </div>
+                        <!--Email-->
+                        <div class="form-group">
+                            <input type="email" class="form-control"  placeholder="Enter your email" name="email"  id="email" required>
+                        </div>
+                        <!--Phone-->
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="Enter your phone" name="phone" id="phone" minlength="10" maxlength="11" required>
+                        </div>
+                        <!--More information -->
+                        <div class="form-group">
+                            <textarea id="content" name="content" class="form-control" placeholder="Can we help you... ?" required ></textarea>
+                        </div>
+                        <!-- Submit -->
+                        <button type="submit" class="submit" onclick="sendContact()">SEND</button>
+                        `
+                    }
+                    function sendContact(){
+                        let email = document.getElementById("email").value;
+                        let name = document.getElementById("username").value;
+                        let phone = document.getElementById("phone").value;
+                        let content = document.getElementById("content").value;
+
+                        let validEmail = document.getElementById("email").validity.valid;
+                        let validName = document.getElementById("username").validity.valid;
+                        let validPhone = document.getElementById("phone").validity.valid;
+                        let validContent = document.getElementById("content").validity.valid;
+
+                        if(isNaN(validPhone)){
+                            validPhone = false
+                        }
+                        let contact = {
+                            email : email,
+                            name : name,
+                            phone : phone,
+                            content : content,
+                        }
+                        if(validEmail && validName && validContent && validPhone){
+                            axios.post(`${host}/post_contact`,contact).then(()=>{
+                                alert("Send contact success ! Thank you !")
+                                location.replace('./home.html')
+                            }).catch((error)=>{
+                                
+                            })
+                        }
+                        
+                        
+                        
+                    }
+                </script>
+                
+            </div>
+        </div>
+        <!--Footer-->
+        <div id="footer">
+
+        </div>
+        <script src="js/footer.js"></script>
+        <script>
+            function search(e) {
+                if (e.keyCode == 13) {
+                    let text = e.target.value;
+                    //console.log(text);
+                    if (!text)
+                        return;
+                    text = text.trim();
+                    var keyword = {
+                        name: text
+                    }
+                    localStorage.setItem('searchKey', text);
+                    e.target.value = '';
+                    location.assign('./search.html');
+                }
+            }
+        </script>
+</body>
+
+</html>

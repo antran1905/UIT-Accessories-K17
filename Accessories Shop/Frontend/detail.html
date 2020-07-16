@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--custom styles-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <script src="js/host.js"></script>
+    <script src="./tata-master/dist/tata.js"></script>
+
+</head>
+
+<body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a>
+                        </li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 ">
+                    <ul class="left" id="accountLogin">
+
+                    </ul>
+                    <script>
+                        var token = localStorage.getItem('token');
+                        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                        if (token) {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./rofile.html#profile"><i class="fas fa-user"></i>${userInfo.userName.slice(0, 8)}</a>
+                            </li>
+                            <li class="menu-item" >
+                                <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                            </li>`
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                    <script>
+                        function logout() {
+
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('userInfo');
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                            //location.replace('login.html#login')
+
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div id="header-middle">
+
+    </div>
+    <script src="js/header_middle.js"></script>
+    <!-- HEADER NAV -->
+    <div id="header-nav">
+        
+    </div>
+    <script src="js/header_nav.js"></script>
+    <div class="product">
+        <!--Title page-->
+        <h1 class="title-head">PRODUCT INFORMATION
+        </h1>
+
+        <!--Link to product-->
+        <!-- <div class="product-path">
+			<div class="container" style="padding-left: 0;">
+				<div class="col-md-12">
+					<a href="" class="product-path-link">Home</a><span> / </span>
+					<a href="" class="product-path-link">Product</a><span> / </span>
+					<a href="" class="product-path-link">Headphone</a><span> / </span>
+					<a href="" class="product-path-link">ONIKUMA K19 Wired RGB Light Gaming Headphone</a>
+				</div>
+			</div>
+		</div> -->
+        <!--Main-->
+        <div class="container">
+            <div class="row main">
+                <div class="col-md-9" style="background-color: white; 
+				border: 1px solid #dddddd;">
+                    <div class="row product-info" id="detail_api">
+                    </div>
+                    <script>
+                        var itemDetail = JSON.parse(localStorage.getItem('productDetail'));
+                        document.getElementById('detail_api').innerHTML = `
+								<div class="col-md-7">
+									<div class="product-image">
+										<img src="${itemDetail.image_name}" alt="" id="img-1">
+									</div>
+								</div>
+								<div class="col-md-5 product-decription">
+									<div class="product-inner">
+										<h5 class="product-name">${itemDetail.name}</h5>
+										<div class="product-price">
+											<span class="current-price">${itemDetail.price}$</span>
+                                            <span class="old-price">
+                    ${((Math.random() * (8 - 5) + 5) + itemDetail.price).toFixed(2)}$
+                                            </span>
+										</div>
+										<div class="quantities">
+											<h6>Quantity</h6>
+											<input type="button" class="change" value="-" onclick="updown(this.value)">
+											<input type="text" class="value" value="1">
+											<input type="button" class="change" value="+" onclick="updown(this.value)">
+										</div>
+										<div class="buy" onclick=addtocart()>
+											<i class="fas fa-shopping-cart icon-addtocart"></i>
+											<a href="#" class="addtocart-decrip">Add to cart</a>
+										</div>
+										
+									</div>
+								</div>
+							`	
+                    </script>
+                </div>
+                <div class="col-md-3">
+                    <div class="policy">
+                        <h6 class="policy-title">PURCHASING POLICY</h6>
+                        <div class="policy-detail">
+                            <ul>
+                                <li><span class="policy-counter">1</span><span class="policy-item">National
+                                        delivery/shipping</span></li>
+                                <li><span class="policy-counter">2</span><span class="policy-item">Payment on
+                                        delivery</span></li>
+                                <li><span class="policy-counter">3</span><span class="policy-item">Guaranteed
+                                        quality</span></li>
+                                <li><span class="policy-counter">4</span><span class="policy-item">Refunds & exchange
+                                        within </span><span style="color: red;"> 10 days</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="policy" style="margin-bottom: 0">
+                        <h6 class="policy-title">PLACE YOUR ORDER</h6>
+                        <div class="policy-detail">
+                            <ul>
+                                <li><span class="policy-counter">1</span><span class="policy-item">Directly from our
+                                        site</span></li>
+                                <li><span class="policy-counter">2</span><span class="policy-item">Contact us on 0909
+                                        090 999 </span></li>
+                                <li><span class="policy-counter">3</span><span class="policy-item">Our physical store at
+                                        5/12A, Quang Trung st, ward 14, Go Vap district, HCM city</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Detail product-->
+        <div class="detail">
+            <div class="container">
+                <h1 class="title-head">PRODUCT DETAIL</h1>
+                <div class="decription">
+                </div>
+                <script>
+                    var itemDetail = JSON.parse(localStorage.getItem('productDetail'));
+                    document.getElementsByClassName('decription')[0].innerText = `${itemDetail.details}`;
+                </script>
+
+            </div>
+        </div>
+        <!--Comment and Rating-->
+        <div class="cmtandrating">
+            <div class="container">
+                <h1 class="title-head">COMMENT AND RATING</h1>
+
+                <div class="feedback">
+                    <div class="container rating-result">
+                        <p class="result-rating">
+                            <span style="color: #4b4949; font-style: italic;">
+                                This is the information that customer evaluate about the product
+                            </span>
+                        </p>
+                        </div>
+                        <span class="addCmt-title" onclick="Comment()">Add comment</span>
+                        <form class="addCmt">
+
+                        </form>
+
+                        <script>
+                            var token = localStorage.getItem('token');
+                            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                            var productId = JSON.parse(localStorage.getItem('productDetail'))._id;
+                            if (token) {
+                                document.getElementsByClassName('addCmt')[0].innerHTML = `
+                                <p class="name">Name</p>
+                                <input type="text" id="imputName" class="inputComment" placeholder="Enter name" value='${userInfo.userName}' required disabled>
+                                <p class="name">Email</p>
+                                <input type="text" id="inputEmail" class="inputComment" placeholder="Enter email" value='${userInfo.userEmail}' required disabled>
+                                <p class="name">Rate</p>
+                                <div class="addCmt-rate">
+                                    <i class="fas fa-star star-check"></i>
+                                    <i class="fas fa-star star-check"></i>
+                                    <i class="fas fa-star star-check"></i>
+                                    <i class="fas fa-star star-check"></i>
+                                    <i class="fas fa-star star-check"></i>
+                                </div>
+                                <p class="name">Comment</p>
+                                <div>
+                                    <textarea name="" id="contentCmt" placeholder="Comment" required></textarea>
+                                </div>
+                                <div class="submitCmt">
+                                    <span class="Btn-submit" onclick="Submit_Comment()">Done</span>
+                                </div>
+                                `
+                            }
+                        </script>
+                        <script>
+                            var rate = 0;
+                            var starCheck = document.getElementsByClassName('star-check');
+                            for (let i = 0; i < starCheck.length; i++) {
+                                starCheck[i].addEventListener('click', function () {
+                                    var itemClick = event.target;
+                                    if (itemClick.className.split(' ').length <= 3) {
+                                        itemClick.className += ' ' + 'star-active';
+                                        for (let k = 0; k < i; k++) {
+                                            if (starCheck[k].className.split(' ')[3] !== 'star-active') {
+                                                starCheck[k].className += ' ' + 'star-active';
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        for (let k = i + 1; k < starCheck.length; k++) {
+                                            starCheck[k].classList.remove('star-active');
+                                        }
+                                    }
+                                    rate = i + 1;
+                                    localStorage.setItem('rate', rate);
+                                });
+                            }
+
+                        </script>
+                    </div>
+                    <div class="userReview">
+                        <div class="userCmt">
+                        </div>
+                        <script>
+                            var id_product = JSON.parse(localStorage.getItem('productDetail'))._id;
+                            axios.get(`${host}/list_cmt`).then(result => {
+                                var list_comment = result.data.data;
+                                var countComment = result.data.count;
+                                localStorage.setItem('countComment', countComment);
+                                var productCmt = [];
+                                for (let i = 0; i < list_comment.length; i++) {
+                                    if (list_comment[i].product_id === id_product) {
+                                        productCmt.push(list_comment[i]);
+                                    }
+                                }
+                                productCmt.map((item, index) => {
+                                    var date = new Date(item.Create_date);
+                                    document.getElementsByClassName('userCmt')[0].innerHTML += `
+                                    <div class="userinfo">
+                                        <span class="userinfo-avatar">
+                                            <img src="./images/user.png" alt="">
+                                        </span>
+                                        <div class="userinfo-more">
+                                            <span class="userinfo-name">${item.name}</span>
+                                            <div class="user-rate">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="userCmt-content">
+                                        <p class="content">
+                                            ${item.info}
+                                        </p>
+                                    </div>
+                                    <div class="userCmt-time">
+                                        <span>${date.toDateString() + ' ' + date.toTimeString()}</span>
+                                    </div>
+                                    `
+                                    for (let i = 0; i < 5; i++) {
+                                        if (i < item.rating) {
+                                            document.getElementsByClassName('user-rate')[index].innerHTML += `
+                                            <i class="fas fa-star star-active"></i>
+                                            `
+                                        }
+                                        else {
+                                            document.getElementsByClassName('user-rate')[index].innerHTML += `
+                                            <i class="fas fa-star"></i>
+                                            `
+                                        }
+                                    }
+                                })
+                            })
+                        </script>
+                        <script>
+
+                        </script>
+                        <!-- <div class="cmtPaging">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link cmtPaging-active" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">&gt</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Related product-->
+        <div class="productRelated">
+            <div class="container">
+                <h1 class="title-head">VIEW MORE</h1>
+                <div class="row productRelated-group">
+                </div>
+                <script>
+                    var list;
+                    axios.get(`${host}/list_product`)
+                        .then((result) => {
+                            var list_product = result.data.data;
+                            list = list_product;
+                            var check = -1;
+                            for (let i = 0; i < 4; i++) {
+                                var random = Math.floor(Math.random() * (list.length - 0) + 0);
+                                while (random == check) {
+                                    random = Math.floor(Math.random() * (list.length - 0) + 0);
+                                };
+                                document.getElementsByClassName('productRelated-group')[0].innerHTML += `
+                            <div class="col-sm-3 pd-30">
+                                <div class="product-inner">
+                                    <div class="parent2">
+                                        <a href="#">
+                                            <img class="img-responsive"src="${list_product[random].image_name}">                                      
+                                        </a>                                                    
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-name">
+                                            <a title='${list_product[random].name}' href="./detail.html" onclick="getIDtoDetail('${list_product[random]._id}')" tabindex="0">
+                                                ${list_product[random].name}
+                                            </a>
+                                        </div>
+                                        <span class="price">
+                                            ${list_product[random].price}$
+                                        </span>
+                                        
+                                    </div>
+                                    <!-- group button -->
+                                    <div class="group-button"> 
+                                        <div class="add-to-wishlist tooltip-1">
+                                            <span class="tooltiptext">Login to use Wishlist</span>
+                                            <a href="/account/login" >
+                                                <i class="far fa-heart"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="view-details tooltip-1">
+                                            <span class="tooltiptext">View details</span>
+                                            <a href="./detail.html" onclick="getIDtoDetail('${list_product[random]._id}')">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </div> 
+                                        <div class="add-to-cart tooltip-1">
+                                            <span class="tooltiptext">Add to Cart</span>
+                                            <button name="add" class="add-to-cart-btn" onclick=addtocartViewmore('${list_product[random]._id}')>
+                                                <i class="fas fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- group button -->
+                                </div>
+                            </div>`;
+                                check = random;
+                            }
+                        }).catch((err) => {
+
+                        });
+                    var productArr = [];
+                    function addtocartViewmore(id) {
+                        tata.success('Successfully', 'Add to cart', {
+                            position: 'tr',
+                            closeBtn: true,
+                            duration: 1000,
+                            progress: true
+
+                        });
+                        var productbyid = list.find(item => {
+                            return item._id === id;
+                        });
+                        productbyid.count = 1;
+                        var lcStr = JSON.parse(localStorage.getItem('productCart'));
+                        if (lcStr) {
+                            productArr = lcStr;
+                        }
+                        if (lcStr !== null) {
+                            var flag = -1;
+                            for (let i = 0; i < lcStr.length; i++) {
+                                if (productbyid._id === lcStr[i]._id) {
+                                    productbyid.count = lcStr[i].count;
+                                    flag = i;
+                                }
+                            }
+                            if (flag == -1) {
+                                productbyid.count = 1;
+                            }
+                        }
+                        if (productArr.length === 0) {
+                            productArr.push(productbyid);
+                        }
+                        else {
+                            var a = -1;
+                            for (let i = 0; i < productArr.length; i++) {
+                                if (productArr[i]._id === productbyid._id) {
+                                    productArr[i].count++;
+                                    a = i;
+                                    break;
+                                }
+                            }
+                            if (a == -1) {
+                                productArr.push(productbyid);
+                            }
+                            else {
+                                a = -1;
+                            }
+                        }
+                        document.getElementById('countproduct').innerHTML = productArr.length;
+                        localStorage.setItem('productCart', JSON.stringify(productArr));
+
+                    }
+                    function getIDtoDetail(id) {
+                        var idDetail = list.find(item => {
+                            return item._id === id;
+                        });
+                        localStorage.setItem('productDetail', JSON.stringify(idDetail));
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <div id="footer">
+            
+    </div>
+    <script src="js/footer.js"></script>
+    <script>
+        //Tăng giảm số lượng sản phẩm
+        function updown(type) {
+            var quantities = document.getElementsByClassName('value')[0];
+            var quantitieValue = parseInt(quantities.value);
+            switch (type) {
+                case '-':
+                    quantitieValue -= 1;
+                    if (quantitieValue == 0) {
+                        alert('Số lượng sản phẩm không hợp lệ !!!');
+                        quantitieValue = 1;
+                    }
+                    break;
+                case '+':
+                    quantitieValue += 1;
+                    break;
+            }
+            quantities.value = quantitieValue;
+        }
+        //Đóng mở tab bình luận
+        function Comment() {
+            var token = localStorage.getItem('token');
+            var add = document.getElementsByClassName('addCmt')[0];
+            if (token) {
+                if (add.style.display == 'block') {
+                    add.style.display = 'none';
+                }
+                else {
+                    add.style.display = 'block';
+                }
+            }
+            else {
+                Swal.fire('Please login to add comment!');
+            }
+        }
+        function Submit_Comment() {
+            var name = document.getElementsByClassName('inputComment')[0].value;
+            var email = document.getElementsByClassName('inputComment')[1].value;
+            var rating = localStorage.getItem('rate');
+            var info = document.getElementById('contentCmt').value;
+            var product_id = JSON.parse(localStorage.getItem('productDetail'))._id;
+            var length_cmt = document.getElementsByClassName('user-rate').length;
+            var comment = {
+                name: name,
+                email: email,
+                rating: rating,
+                info: info,
+                product_id: product_id,
+            }
+            var dateCmt = new Date(Date.now());
+            axios.post(`${host}/insert_cmt`, comment)
+            .then(result => {
+                    var commentResult = result.data.data;
+                    document.getElementsByClassName('userCmt')[0].innerHTML += `
+                        <div class="userinfo">
+                            <span class="userinfo-avatar">
+                                <img src="./images/user.png" alt="">
+                            </span>
+                            <div class="userinfo-more">
+                                <span class="userinfo-name">${commentResult.name}</span>
+                                    <div class="user-rate">
+                                    </div>   
+                            </div>
+                        </div>
+                        <div class="userCmt-content">
+                            <p class="content">
+                                ${commentResult.info}
+                            </p>
+                        </div>
+                        <div class="userCmt-time">
+                            <span>${dateCmt}</span>
+                        </div> `
+                    for (let i = 0; i < 5; i++) {
+                        if (i < commentResult.rating) {
+                            document.getElementsByClassName('user-rate')[length_cmt].innerHTML += `
+                                            <i class="fas fa-star star-active"></i>
+                                            `
+                        }
+                        else {
+                            document.getElementsByClassName('user-rate')[length_cmt].innerHTML += `
+                                            <i class="fas fa-star"></i>
+                                            `
+                        }
+                    }
+            })
+            .catch(err => {
+
+            })
+            localStorage.setItem('rate', 0);
+            document.getElementById('contentCmt').value = '';
+            document.getElementsByClassName('addCmt-rate')[0].innerHTML = `
+                <i class="fas fa-star star-check"></i>
+                <i class="fas fa-star star-check"></i>
+                <i class="fas fa-star star-check"></i>
+                <i class="fas fa-star star-check"></i>
+                <i class="fas fa-star star-check"></i>
+            `
+            document.getElementsByClassName('addCmt')[0].style.display = 'none';
+            tata.success('Successfully', 'Add comment', {
+                            position: 'tr',
+                            closeBtn: true,
+                            duration: 1000,
+                            progress: true
+
+                        });
+        }
+    </script>
+    <script>
+        function addtocart() {
+            tata.success('Successfully', 'Add to cart', {
+                position: 'tr',
+                closeBtn: true,
+                duration: 1000,
+                progress: true
+
+            });
+            var productDetail = [JSON.parse(localStorage.getItem('productDetail'))];
+            var productCart = JSON.parse(localStorage.getItem('productCart'));
+            productDetail[0].count = document.getElementsByClassName('value')[0].value;
+            if (productCart === null || productCart.length === 0) {
+                localStorage.setItem('productCart', JSON.stringify(productDetail));
+                document.getElementById('countproduct').innerHTML = 1;
+            }
+            if (productCart.length !== 0) {
+                var flag = -1;
+                for (let i = 0; i < productCart.length; i++) {
+                    if (productDetail[0]._id === productCart[i]._id) {
+                        productCart[i].count = productDetail[0].count;
+                        flag = i;
+                    }
+                }
+                if (flag == -1) {
+                    productCart.push(productDetail[0]);
+                }
+                document.getElementById('countproduct').innerHTML = productCart.length;
+                localStorage.setItem('productCart', JSON.stringify(productCart));
+            }
+        }
+    </script>
+    <script>
+        function search(e) {
+            if (e.keyCode == 13) {
+                let text = e.target.value;
+                if (!text)
+                    return;
+                text = text.trim();
+                var keyword = {
+                    name: text
+                }
+                localStorage.setItem('searchKey', text);
+                e.target.value = '';
+                location.assign('./search.html');
+            }
+        }
+    </script>
+</body>
+
+</html>

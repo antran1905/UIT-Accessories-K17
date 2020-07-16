@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+    <script src="js/admin_login.js"></script>
+    
+</head>
+
+<body>
+
+
+    <div class="limiter">
+        <div class="container-login100" id="adminsite">
+            <div class="wrap-login100  p-b-20">
+                <form class="login100-form validate-form" method="POST" action="accessories1.herokuapp.com/login">
+                    <span class="login100-form-title m-b-50">
+                        Welcome Accensories Shop
+
+                    </span>
+
+                    <div class="wrap-admin-site">
+                        <div class="wrap-input100 validate-input m-t-15 m-b-35" data-validate="Enter email">
+                            <input class="input100 " type="text" name="email" id="email" >
+                            <span class="focus-input100" data-placeholder="Email"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                            <input class="input100" type="password" name="pass" id="password">
+                            <span class="focus-input100" data-placeholder="Password"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn" onclick="handleLogin()" type="submit">
+                                Login
+                            </button>
+                        </div>
+
+                        <ul class="login-more p-t-50">
+                            <li class="m-b-8">
+                                <span class="txt1">
+                                    Forgot
+                                </span>
+
+                                <a href="#" class="txt2">
+                                    Username / Password?
+                                </a>
+                            </li>
+
+                            <li>
+                                <span class="txt1">
+                                    Don’t have an account?
+                                </span>
+
+                                <a href="./admin_signup.html" class="txt2">
+                                    Sign up
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+   
+
+    <div id="dropDownSelect1"></div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    
+    <!--===============================================================================================-->
+    <script src="js/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/login.js"></script>
+    
+
+</body>
+
+</html>

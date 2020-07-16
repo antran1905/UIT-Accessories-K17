@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--custom styles-->
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+    <script src="js/host.js"></script>
+    <script>
+        var token = localStorage.getItem('token');
+        if(token) {
+            location.assign('./home.html');
+        }
+    </script>
+</head>
+<body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a></li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 " >
+                    <ul class="left" id="accountLogin">
+                        
+                    </ul>
+                    <script>
+                        // var token = localStorage.getItem('token');
+                        //var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                        // if (token) {
+                        //     document.getElementById('accountLogin').innerHTML = `
+                        //     <li class="menu-item-border">
+                        //         <a class="item" href="cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                        //     </li>
+                        //     <li class="menu-item-border">
+                        //         <a class="item" href="profile.html#profile"><i class="fas fa-user"></i>${userName.slice(0,8)}</a>
+                        //     </li>
+                        //     <li class="menu-item" >
+                        //         <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                        //     </li>`
+                        // }
+                        // else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        //}
+                    </script>
+                    <script>
+                        // function logout() {
+                            
+                        //     localStorage.removeItem('token');
+                        //     localStorage.removeItem('userInfo');
+                        //     document.getElementById('accountLogin').innerHTML = `
+                        //     <li class="menu-item-border">
+                        //         <a class="item" href="cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                        //     </li>
+                        //     <li class="menu-item-border">
+                        //         <a class="item" href="register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                        //     </li>
+                        //     <li class="menu-item">
+                        //         <a class="item" href="login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                        //     </li>`
+                        //     location.replace('login.html#login')
+                            
+                        // }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div id="header-middle">
+
+    </div>
+    <script src="js/header_middle.js"></script>
+    <!-- HEADER NAV -->
+    <div id="header-nav">
+        
+    </div>
+    <script src="js/header_nav.js"></script>
+    <div class="login" id="login">
+        <!--Title page-->
+        
+        <!--Main-->
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100 p-b-20">
+                    <form class="login100-form validate-form" method="POST" action="accessories1.herokuapp.com/login">
+                        <span class="login100-form-title p-b-70">
+                            Welcome
+                        </span>
+                        
+    
+                        <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter email">
+                            <input class="input100" type="text" name="email" id="email" value="" >
+                            <span class="focus-input100" data-placeholder="Email"></span>
+                        </div>
+    
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                            <input class="input100" type="password" name="pass" id="password" value="" >
+                            <span class="focus-input100" data-placeholder="Password"></span>
+                        </div>
+    
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn" onclick="handleLogin()" type="submit">
+                                Login
+                            </button>
+                        </div>
+    
+                        <ul class="login-more p-t-55">
+                            <li class="m-b-8">
+                                <span class="txt1">
+                                    Forgot
+                                </span>
+    
+                                <a href="./forgotpass.html" class="txt2">
+                                    Username / Password?
+                                </a>
+                            </li>
+    
+                            <li>
+                                <span class="txt1">
+                                    Don’t have an account?
+                                </span>
+    
+                                <a href="./register.html#register" class="txt2">
+                                    Sign up
+                                </a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <div id="footer">
+            
+    </div>
+    <script src="js/footer.js"></script>
+    <script>
+        function search(e) {
+            if (e.keyCode == 13) {
+                let text = e.target.value;
+                //console.log(text);
+                if (!text)
+                    return;
+                text = text.trim();
+                var keyword = {
+                    name: text
+                }
+                localStorage.setItem('searchKey', text);
+                e.target.value = '';
+                location.assign('./search.html');
+            }
+        }
+    </script>
+    <script>
+        function handleLogin() {     
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var idEmail  = document.getElementById('email').validity.valid;
+            var idPass = document.getElementById('password').validity.valid;
+
+            var login = {
+                email: email,
+                password: password
+            };
+            
+            if(idEmail && idPass){
+                axios.post(`${host}/login`, login).then((result) => {
+                ////console.log(result.data.message.token);
+                //console.log(result.data.success);
+                if(result.data.success && result.data.message.user.role[0] === 'khachhang'){
+                    localStorage.setItem("token", result.data.message.token);
+                    var userInfo = {
+                        userEmail: result.data.message.user.email,
+                        userName: result.data.message.user.name,
+                        userAddress: result.data.message.user.address,
+                        userPhone: result.data.message.user.phone
+                    }
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                    
+                    
+                    setTimeout(function(){
+                        location.assign(document.referrer);
+                    }, 1200)
+                }
+                else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Login failed!',
+                        text : 'Wrong Email or Password !',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }
+                
+            });
+            }
+            
+
+        }
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    
+    <!--===============================================================================================-->
+    <script src="js/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Out</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--custom styles-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <script src="js/host.js"></script>
+    <script>
+        var token = localStorage.getItem('token');
+        if(JSON.parse(localStorage.getItem('productCart'))){
+            if( JSON.parse(localStorage.getItem('productCart')).length === 0 || !token){
+                location.assign('./cart.html');
+            }
+        }
+        else {
+            location.assign('./cart.html');
+        }
+        
+    </script>
+</head>
+
+<body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a>
+                        </li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 ">
+                    <ul class="left" id="accountLogin">
+
+                    </ul>
+                    <script>
+                        var token = localStorage.getItem('token');
+                        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                        if (token) {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./profile.html#profile"><i class="fas fa-user"></i>${userInfo.userName.slice(0, 8)}</a>
+                            </li>
+                            <li class="menu-item" >
+                                <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                            </li>`
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                    <script>
+                        function logout() {
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('userInfo');
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                            location.assign('./cart.html');
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div id="header-middle">
+
+    </div>
+    <script src="js/header_middle.js"></script>
+    <!-- HEADER NAV -->
+    <div id="header-nav">
+        
+    </div>
+    <script src="js/header_nav.js"></script>
+    <div class="checkout">
+        <!--Title page-->
+        <h1 class="title-head">CHECK OUT</h1>
+        <!--Main-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <form class="billing">
+                        <h6>1. CUSTOMER INFORMATION</h6>
+                        <div class="billing-notSign">
+                            <div class="billing-notSign_info" id="infoUser">
+                                <script>
+                                    var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                                    document.getElementById('infoUser').innerHTML += `
+                                    <input type="text" placeholder="Full name" id="billing-name" value="${userInfo.userName}" required >
+                                    <input type="text" placeholder="Phone" id="billing-phone" value="0${userInfo.userPhone}" required>
+                                    <input type="text" placeholder="Shipping address" id="billing-newaddr" value="${userInfo.userAddress}" >
+                                    <textarea cols="30" rows="5" id="billing-note" placeholder="Note"></textarea>
+                                    `
+                                </script>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-6" style="margin-bottom: 1rem">
+                    <div class="order-group">
+                        <h6>2. ORDER INFORMATION</h6>
+                        <form action="" id="checkoutProduct">
+                            <script>
+                                var cartlocal = JSON.parse(localStorage.getItem('productCart'));
+                                cartlocal.map(item => {
+                                    document.getElementById('checkoutProduct').innerHTML += `
+                                    <div class="order-single">
+                                        <div class="order-single_info">
+                                            <img src="${item.image_name}">
+                                            <div class="order-product">
+                                                <span class="order-product_name">${item.name}</span>
+                                                <span class="order-prodcut_quantities"> x ${item.count}</span>
+                                            </div>
+                                            <div class="order-single_price">${(parseInt(item.count) * parseFloat(item.price)).toFixed(2)}$</div>
+                                        </div>
+                                    </div>
+                                    `
+                                })
+                            </script>
+                            <!-- <div class="ship">
+                                <span class="title-order">Ship</span>
+                                <span class="ship-price">30.000đ</span>
+                            </div> -->
+                            <div class="total-orderPrice">
+                                <span class="title-order">Total</span>
+                                <span class="product-Totalprice"></span>
+                                <script>
+                                    var a = document.getElementsByClassName('product-Totalprice')[0];
+                                    var total_each_item = document.getElementsByClassName('order-single_price');
+                                    var totalBill = 0;
+                                    for (let i = 0; i < total_each_item.length; i++) {
+                                        totalBill += parseFloat(total_each_item[i].innerHTML);
+                                    }
+                                    a.innerHTML = totalBill.toFixed(2) + '$';
+                                </script>
+                            </div>
+                            <div class="confirmOrder">
+                                <input type="button" id="Btn-Order" value="CONFIRM" onclick="handleCheckout()" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function search(e) {
+            if (e.keyCode == 13) {
+                let text = e.target.value;
+                ////console.log(text);
+                if (!text)
+                    return;
+                text = text.trim();
+                var keyword = {
+                    name: text
+                }
+                localStorage.setItem('searchKey', text);
+                e.target.value = '';
+                location.assign('./search.html');
+            }
+        }
+    </script>
+    <script>
+        function handleCheckout() {
+            var name = document.getElementById('billing-name').value;
+            var phone = document.getElementById('billing-phone').value;
+            //var email = document.getElementById('billing-email').value;
+            var addr = document.getElementById('billing-newaddr').value;
+            //var note = document.getElementById('billing-note').value;
+
+            var bill = {
+                username: name,
+                phone: phone,
+                address: addr,
+                total: totalBill,
+                info: {
+                    cart: JSON.parse(localStorage.getItem('productCart'))
+                }
+            }
+            axios.post(`${host}/insert_bill`, bill)
+                .then((result) => {
+                    //console.log(result.data);
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Done',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setTimeout(function () {
+                        localStorage.removeItem('productCart');
+                        location.replace('./collection.html');
+                    }, 1000)
+                })
+        }
+    </script>
+    <!--Footer-->
+    <div id="footer">
+            
+    </div>
+    <script src="js/footer.js"></script>
+</body>
+
+</html>

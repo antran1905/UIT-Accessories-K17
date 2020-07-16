@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--custom styles-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <script src="js/host.js"></script>
+    <script src="./tata-master/dist/tata.js"></script>
+</head>
+
+<body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a>
+                        </li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 ">
+                    <ul class="left" id="accountLogin">
+                    </ul>
+                    <script>
+                        var token = localStorage.getItem('token');
+                        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                        if (token) {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./profile.html#profile"><i class="fas fa-user"></i>${userInfo.userName.slice(0, 8)}</a>
+                            </li>
+                            <li class="menu-item" >
+                                <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                            </li>`
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                    <script>
+                        function logout() {
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('userInfo');
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div id="header-middle">
+
+    </div>
+    <script src="js/header_middle.js"></script>
+    <!-- HEADER NAV -->
+    <div id="header-nav"></div>
+    <script src="js/header_nav.js"></script>
+    <div class="cart" id="cart">
+        <!--Title page-->
+        <h1 class="title-head">CART</h1>
+        <!--Main-->
+        <div class="container">
+            <div class="row cart-total">
+                <div class="col-md-9 col-sm-12" style="margin-bottom: 1rem">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItem">
+                            <script>
+                                var cartlocal = JSON.parse(localStorage.getItem('productCart'));
+                                if (cartlocal) {
+                                    if (cartlocal.length != 0) {
+                                        cartlocal.map(item => {
+                                            document.getElementById('cartItem').innerHTML += `
+                                            <tr>
+                                                <td><input type="button" class="change remove" value="X"></td>
+                                                <td><img src="${item.image_name}" alt=""></td>
+                                                <td>${item.name}</td>
+                                                <td>${item.price}$</td>
+                                                <td>
+                                                    <input type="button" class="change sub" value="-">
+                                                    <input type="text" class="value" value="${item.count}">
+                                                    <input type="button" class="change plus" value="+">
+                                                </td>
+                                                <td class="total_each_item">${(parseInt(item.count) * parseFloat(item.price)).toFixed(2) + '$'}</td>
+                                            </tr>`
+                                        });
+                                    }
+                                    else {
+                                        document.getElementById('cartItem').innerHTML = '<td colspan="6">Không có sản phẩm nào trong giỏ hàng</td>';
+                                    }
+                                }
+                                else {
+                                    document.getElementById('cartItem').innerHTML = '<td colspan="6">Không có sản phẩm nào trong giỏ hàng</td>';
+                                }
+                            </script>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <table class="cart-table-total">
+                        <thead>
+                            <tr>
+                                <th>Total Orders</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="height:120px ; text-align: center">
+                                    <label for="">Discount</label>
+                                    <div class="coupon">
+                                        <input type="text" placeholder="Enter discount code">
+                                        <span id="couponCheck">Check</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center; padding: 10px;">
+                                    <label for="">Total</label>
+                                    <div>
+                                        <p class="totalpay">0$</p>
+                                    </div>
+                                    <div class="confirm">
+                                        <a href="#" class="confirmBtn" onclick="handleBuy()">Confirm</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Related product-->
+        <div class="productRelated">
+            <div class="container">
+                <h1 class="title-head">VIEW MORE</h1>
+                <div class="row productRelated-group">
+                </div>
+                <script>
+                    var list;
+                    axios.get(`${host}/list_product`)
+                        .then((result) => {
+                            var list_product = result.data.data;
+                            list = list_product;
+                            var check = -1;
+                            for (let i = 0; i < 4; i++) {
+                                var random = Math.floor(Math.random() * (list.length - 0) + 0);
+                                while (random == check) {
+                                    random = Math.floor(Math.random() * (list.length - 0) + 0);
+                                };
+                                document.getElementsByClassName('productRelated-group')[0].innerHTML += `
+                            <div class="col-sm-3 pd-30">
+                                <div class="product-inner">
+                                    <div class="parent2">
+                                        <a href="#">
+                                            <img class="img-responsive"src="${list_product[random].image_name}">                                      
+                                        </a>                                                    
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-name">
+                                            <a title="${list_product[random].name}"  href="./detail.html" onclick="getIDtoDetail('${list_product[random]._id}')" tabindex="0">
+                                                ${list_product[random].name}
+                                            </a>
+                                        </div>
+                                        <span class="price">
+                                            ${list_product[random].price}$
+                                        </span>
+                                        
+                                    </div>
+                                    <!-- group button -->
+                                    <div class="group-button"> 
+                                        <div class="add-to-wishlist tooltip-1">
+                                            <span class="tooltiptext">Login to use Wishlist</span>
+                                            <a href="/account/login" >
+                                                <i class="far fa-heart"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="view-details tooltip-1">
+                                            <span class="tooltiptext">View details</span>
+                                            <a href="./detail.html" onclick="getIDtoDetail('${list_product[random]._id}')">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </div> 
+                                        <div class="add-to-cart tooltip-1">
+                                            <span class="tooltiptext">Add to Cart</span>
+                                            <button name="add" class="add-to-cart-btn" onclick=addtocartViewmore('${list_product[random]._id}')>
+                                                <i class="fas fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- group button -->
+                                </div>
+                            </div>`;
+                                check = random;
+                            }
+                        }).catch((err) => {
+
+                        });
+                    var productArr = [];
+                    function addtocartViewmore(id) {
+                        tata.success('Successfully', 'Add to cart', {
+                            position: 'tr',
+                            closeBtn: true,
+                            duration: 1000,
+                            progress: true
+
+                        });
+                        var productbyid = list.find(item => {
+                            return item._id === id;
+                        });
+                        productbyid.count = 1;
+                        var lcStr = JSON.parse(localStorage.getItem('productCart'));
+                        if (lcStr) {
+                            productArr = lcStr;
+                        }
+                        if (lcStr !== null) {
+                            var flag = -1;
+                            for (let i = 0; i < lcStr.length; i++) {
+                                if (productbyid._id === lcStr[i]._id) {
+                                    productbyid.count = lcStr[i].count;
+                                    flag = i;
+                                }
+                            }
+                            if (flag == -1) {
+                                productbyid.count = 1;
+                            }
+                        }
+                        if (productArr.length === 0) {
+                            productArr.push(productbyid);
+                        }
+                        else {
+                            var a = -1;
+                            for (let i = 0; i < productArr.length; i++) {
+                                if (productArr[i]._id === productbyid._id) {
+                                    productArr[i].count++;
+                                    a = i;
+                                    break;
+                                }
+                            }
+                            if (a == -1) {
+                                productArr.push(productbyid);
+                            }
+                            else {
+                                a = -1;
+                            }
+                        }
+                        document.getElementById('countproduct').innerHTML = productArr.length;
+                        localStorage.setItem('productCart', JSON.stringify(productArr));
+                        location.assign('./cart.html');
+                    }
+                    function getIDtoDetail(id) {
+                        var idDetail = list.find(item => {
+                            return item._id === id;
+                        });
+                        localStorage.setItem('productDetail', JSON.stringify(idDetail));
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <div id="footer">
+            
+    </div>
+    <script src="js/footer.js"></script>
+    <!--Tính tổng giá trị đơn hàng-->
+    <script>
+        var price_item = document.getElementsByClassName('total_each_item');
+        var total_cart = document.getElementsByClassName('totalpay')[0];
+        var total = 0;
+        for (let i = 0; i < price_item.length; i++) {
+            total += parseFloat(price_item[i].innerHTML);
+        }
+        total_cart.innerHTML = total.toFixed(2) + '$';
+    </script>
+    <!--Xóa 1 thành phần đơn hàng-->
+    <script>
+        var StorageLocal = JSON.parse(localStorage.getItem('productCart'));
+        var remove = document.getElementsByClassName('remove');
+        for (let i = 0; i < remove.length; i++) {
+            var buttonRemove = remove[i];
+            buttonRemove.addEventListener('click', function () {
+                var buttonClickRemove = event.target;
+                var name = buttonClickRemove.parentElement.nextElementSibling.nextElementSibling.innerHTML;
+                for (let i = 0; i < StorageLocal.length; i++) {
+                    if (StorageLocal[i].name === name) {
+                        StorageLocal.splice(i, 1);
+                        localStorage.setItem('productCart', JSON.stringify(StorageLocal));
+                    }
+                }
+                buttonClickRemove.parentElement.parentElement.remove();
+
+                //Tính tổng giá trị đơn hàng
+                var price_item = document.getElementsByClassName('total_each_item');
+                var total_cart = document.getElementsByClassName('totalpay')[0];
+                var total = 0;
+                for (let i = 0; i < price_item.length; i++) {
+                    total += parseFloat(price_item[i].innerHTML);
+                }
+                total_cart.innerHTML = total.toFixed(2) + '$';
+                if (total_cart.innerHTML === "0$") {
+                    document.getElementById('cartItem').innerHTML = '<td colspan="6">Không có sản phẩm nào trong giỏ hàng</td>';
+                }
+            });
+        }
+    </script>
+    <!--Giảm số lượng sản phâm-->
+    <script>
+        var StorageLocal = JSON.parse(localStorage.getItem('productCart'));
+        var sub = document.getElementsByClassName('sub');
+        for (let i = 0; i < sub.length; i++) {
+            var buttonSub = sub[i];
+            buttonSub.addEventListener('click', function () {
+                var buttonClickSub = event.target;
+                var total_each_element = buttonClickSub.parentElement.nextElementSibling.innerHTML;
+                var price_each_element = buttonClickSub.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+                var total_sub = 0;
+
+                var name = buttonClickSub.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.innerHTML;
+
+
+                if (buttonClickSub.nextElementSibling.value === '1') {
+                    alert('Sản phẩm tối thiểu là 1');
+                    buttonClickSub.nextElementSibling.value = '1';
+                    total_sub = 1 * parseFloat(price_each_element);
+                    buttonClickSub.parentElement.nextElementSibling.innerHTML = total_sub.toFixed(2) + '$';
+                }
+                else {
+                    buttonClickSub.nextElementSibling.value--;
+                    total_sub = parseFloat(total_each_element) - parseFloat(price_each_element);
+                    buttonClickSub.parentElement.nextElementSibling.innerHTML = total_sub.toFixed(2) + '$';
+                }
+                var price_item = document.getElementsByClassName('total_each_item');
+                var total_cart = document.getElementsByClassName('totalpay')[0];
+                var total = 0;
+                for (let i = 0; i < price_item.length; i++) {
+                    total += parseFloat(price_item[i].innerHTML);
+                }
+                total_cart.innerHTML = total.toFixed(2) + '$';
+                for (let i = 0; i < StorageLocal.length; i++) {
+                    if (StorageLocal[i].name === name) {
+                        StorageLocal[i].count = buttonClickSub.nextElementSibling.value;
+                        localStorage.setItem('productCart', JSON.stringify(StorageLocal));
+                    }
+                }
+            })
+        }
+    </script>
+    <!--Tăng số lượng sản phâm-->
+    <script>
+        var StorageLocal = JSON.parse(localStorage.getItem('productCart'));
+        var plus = document.getElementsByClassName('plus');
+        for (let i = 0; i < plus.length; i++) {
+            var buttonPlus = plus[i];
+            buttonPlus.addEventListener('click', function () {
+                var buttonClickPlus = event.target;
+                var total_each_element = buttonClickPlus.parentElement.nextElementSibling.innerHTML;
+                var price_each_element = buttonClickPlus.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+                var total_plus = 0;
+
+                var name = buttonClickPlus.parentElement.parentElement.firstElementChild.nextElementSibling.nextElementSibling.innerHTML;
+
+                buttonClickPlus.parentElement.firstElementChild.nextElementSibling.value++;
+                total_plus = parseFloat(total_each_element) + parseFloat(price_each_element);
+                buttonClickPlus.parentElement.nextElementSibling.innerHTML = total_plus.toFixed(2) + '$';
+                var price_item = document.getElementsByClassName('total_each_item');
+                var total_cart = document.getElementsByClassName('totalpay')[0];
+                var total = 0;
+                for (let i = 0; i < price_item.length; i++) {
+                    total += parseFloat(price_item[i].innerHTML);
+                }
+                total_cart.innerHTML = total.toFixed(2) + '$';
+                for (let i = 0; i < StorageLocal.length; i++) {
+                    if (StorageLocal[i].name === name) {
+                        StorageLocal[i].count = buttonClickPlus.parentElement.firstElementChild.nextElementSibling.value;
+                        localStorage.setItem('productCart', JSON.stringify(StorageLocal));
+                    }
+                }
+            })
+        }
+    </script>
+    <script>
+        function search(e) {
+            if (e.keyCode == 13) {
+                let text = e.target.value;
+                if (!text)
+                    return;
+                text = text.trim();
+                var keyword = {
+                    name: text
+                }
+                localStorage.setItem('searchKey', text);
+                e.target.value = '';
+                location.assign('./search.html');
+            }
+        }
+    </script>
+    <script>
+        function handleBuy() {
+            if (JSON.parse(localStorage.getItem('productCart')).length !== 0 && token) {
+                location.assign('./checkout.html');
+            }
+            else if (JSON.parse(localStorage.getItem('productCart')).length === 0) {
+                Swal.fire('No products in the cart!');
+            }
+            else {
+                Swal.fire('Please login to purchase!');
+            }
+        }
+    </script>
+    
+</body>
+
+</html>

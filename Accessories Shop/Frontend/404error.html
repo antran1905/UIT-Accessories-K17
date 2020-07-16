@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>404 error</title>
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!--custom styles-->
+        
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/header.css">
+        <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    </head>
+    <body>
+    <!-- HEADER TOP -->
+    <div class="header-top">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="right">
+                        <li class="menu-item-border"><a class="item" href="#"><img src="images/flagen.webp"> English</a></li>
+                        <li class="menu-item"><a class="item" href="#">$ USD</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-8 " >
+                    <ul class="left" id="accountLogin">
+                        
+                    </ul>
+                    <script>
+                        var token = localStorage.getItem('token');
+                        var userName = localStorage.getItem('userName')
+                        var userEmail = localStorage.getItem('userEmail')
+                        var userAddress = localStorage.getItem('userAddress')
+                        var userPhone = localStorage.getItem('userPhone')
+                        if (token) {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./profile.html#profile"><i class="fas fa-user"></i>${userName.slice(0,8)}</a>
+                            </li>
+                            <li class="menu-item" >
+                                <a class="item" onclick="logout()"><i class="fas fa-sign-in-alt" ></i></i>Log out</a>
+                            </li>`
+                        }
+                        else {
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                        }
+                    </script>
+                    <script>
+                        function logout() {
+                            
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('userInfo');
+                            document.getElementById('accountLogin').innerHTML = `
+                            <li class="menu-item-border">
+                                <a class="item" href="./cart.html"><i class="fas fa-list-alt"></i>Track your order</a>
+                            </li>
+                            <li class="menu-item-border">
+                                <a class="item" href="./register.html#register"><i class="fas fa-user"></i>Create Account</a>
+                            </li>
+                            <li class="menu-item">
+                                <a class="item" href="./login.html#login"><i class="fas fa-sign-in-alt"></i></i>Login</a>
+                            </li>`
+                            location.replace('./login.html#login')
+                            
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADER MIDDLE -->
+    <div class="header-middle">
+        <div class="container2">
+            <div class="header-middle-inner">
+                <div class="row">
+                    <div id="logo" class="col-md-3">
+                        <div class="logo">
+                            <a href="#"><img  style="
+                                width: 240px;" src="images/logo.webp" class="img-responsive" >
+                            </a>
+                            <i class="fas fa-align-justify icon-res" data-toggle="collapse" data-target="#menu-res"></i>
+                        </div>
+                        <ul id="menu-res" class="main-menu collapse">
+                            <li class="main-menu-item">
+                                <span class="hot">HOT</span>
+                                <a class="menu-lv1" href="./home.html">HOME</a>
+                            </li>
+                           
+                            <li class="main-menu-item">
+                                <span class="new">NEW</span>
+                                <a class="menu-lv1" href="./collection.html">SHOP</a>
+                            </li>
+                            <li class="main-menu-item">
+                                
+                                <a class="menu-lv1" href="./support.html">SUPPORT</a>
+                            </li>
+                            <li class="main-menu-item">
+                                <a class="menu-lv1" href="./#contact">CONTACT US</a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                    <div id="menu-bar" class="col-md-6">
+                        <div class="box-header-nav">
+                            <ul class="main-menu">
+                                <li class="main-menu-item">
+                                    <span class="hot">HOT</span>
+                                    <a class="menu-lv1" href="./home.html">HOME</a>
+                                </li>
+                               
+                                <li class="main-menu-item">
+                                    <span class="new">NEW</span>
+                                    <a class="menu-lv1" href="./collection.html">SHOP</a>
+                                </li>
+                                <li class="main-menu-item">
+                                    
+                                    <a class="menu-lv1" href="./support.html">SUPPORT</a>
+                                </li>
+                                <li class="main-menu-item">
+                                    <a class="menu-lv1" href="#contact">CONTACT US</a>
+                                </li>
+                            </ul>
+                            <div id="search-1" class="search__container">
+                                <input class="search__input" type="text" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="phone-number" class="col-md-3">
+                        <div class="phone">
+                            <i class="fas fa-phone-volume"></i><a href="tel:0909-090-999" style="color: #000;">0909-090-999</a> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>                
+        </div>
+    </div>
+    <!-- HEADER NAV -->
+    <div class="header-nav">
+        <div class="container2">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="all-department">
+                        <a href="#">
+                            <span class="text-title">All Departments</span>
+                            
+                        </a>
+                        <i class="fas fa-align-justify" data-toggle="collapse" data-target="#category"></i>                           
+                    </div>
+                    <div id="category" class="category collapse">
+                        
+                        <ul>
+                            <li class="menu-category"> <a href="#bestseller"> <span class="fas fa-mobile-alt icon-category"></span>PHONE CASES<span class="fas fa-angle-right"></span></a> </li>
+                            <li class="menu-category"> <a href="#bestseller"> <span class="fas fa-headphones-alt icon-category"></span>HEADPHONES<span class="fas fa-angle-right"></span></a> </li>
+                            <li class="menu-category"> <a href="#bestseller">  <img class="icon-category" src="images/apple-watch.svg" alt="smart watches"> SMART WATCHES<span class="fas fa-angle-right"></span></a> </li>
+                            <li class="menu-category"> <a href="#toptrending"> <img class="icon-category" src="images/battery.svg" alt="smart watches">BATTERIES<span class="fas fa-angle-right"></span></a> </li>
+                            <li class="menu-category"> <a href="#toptrending"> <img class="icon-category" src="images/charge.svg" alt="smart watches">POWER & CABLES<span class="fas fa-angle-right"></span></a> </li>
+                            <li class="menu-category"> <a href="#toptrending"> <img class="icon-category" src="images/memory-card.svg" alt="smart watches">MICRO SD CARD<span class="fas fa-angle-right"></span></a> </li>
+                            <li class="menu-category"> <a href="./collection.html" target="_blank"> <span class="fas fa-mobile-alt icon-category"></span>ALL COLLECTION<span class="fas fa-angle-right"></span></a> </li>
+                            
+                        </ul>
+                    </div>
+                    
+                </div>
+                <div id="search-2" class="col-md-4">
+                    <div class="search__container">
+                        <input class="search__input" type="text" placeholder="Search">
+                    </div>
+                </div>
+                <div id="block-link" class="col-md-4">
+                    <div class="shop-cart">
+                        <a href="cart.html" class="block-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="count" id=countproduct></span>
+                            <script>
+                                var product = JSON.parse(localStorage.getItem('productCart'));
+                                if (product){
+                                    document.getElementById('countproduct').innerHTML = product.length;
+                                }
+                                else{
+                                    document.getElementById('countproduct').innerHTML = 0;
+                                }
+                            </script>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main -->
+    <div class="body-error">
+        <div class="container">
+            <h1 class="error-code">
+                404
+            </h1>
+        </div>
+        <div class="container">
+            <h2 class="error-title">
+                Opps! This Page Could Not Be Found!
+            </h2>
+            <h3 class="error-des">
+                Sorry bit the page you are looking for does not exist, have been removed or name changed
+            </h3>
+            <div class="button-back">
+                <a href="home.html">BACK TO HOMEPAGE</a>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <div>
+        <div id="footer" >
+            <div class="content-footer">
+                <div class="container2">
+                    <div class="row">
+                        <!-- contact -->
+                        <div class="footer-column col-lg-3 col-md-12">
+
+                            <a class="logo d-block" href="https://amanto-store-demo.myshopify.com">
+
+                                <img src="images/logo_white.webp" width="230px;" class="image-fluid">
+
+                            </a>
+                            <h3 style="color:#fff">Contact</h3>
+                            <div id="contact" class="contact">
+                                <p style="color:#999">
+                                    <strong>E :</strong> 17520224@gm.uit.edu.com
+                                </p>
+                                <p style="color:#999">
+                                    <strong>VN :</strong> 0909-090-999
+                                </p>
+                                <p style="color:#999">
+                                    <strong>International :</strong> +84123 333 7777
+                                </p>
+                            </div>
+
+                        </div>
+                        <!-- about us -->
+                        <div class="footer-column col-lg-3 col-sm-6 col-12">
+
+                            <h3 style="color:#fff">ABOUT US</h3>
+                            <ul class="list-unstyled">
+
+
+                                <li><a style="color:#999" href="/">Scotch Corporate</a></li>
+
+
+                                <li><a style="color:#999" href="/">Careers</a></li>
+
+
+                                <li><a style="color:#999" href="/">Privacy Policy</a></li>
+
+
+                                <li><a style="color:#999" href="/">Terms of Use</a></li>
+
+
+                                <li><a style="color:#999" href="/">Why Buy Direct</a></li>
+
+
+                                <li><a style="color:#999" href="/">Newsletter</a></li>
+
+
+                            </ul>
+
+                        </div>
+                        <!-- SUPPORT -->
+                        <div class="footer-column col-lg-3 col-sm-6 col-12">
+
+                            <h3 style="color:#fff">SUPPORT</h3>
+                            <ul class="list-unstyled">
+
+
+                                <li><a style="color:#999" href="support.html">Customer Support</a></li>
+
+
+                                <li><a style="color:#999" href="404error.html">Shipping Policy</a></li>
+
+
+                                <li><a style="color:#999" href="cart.html">Returns</a></li>
+
+
+                                <li><a style="color:#999" href="404error.html">Order Status</a></li>
+
+
+                                <li><a style="color:#999" href="support.html">Contact Us</a></li>
+
+
+                            </ul>
+
+                        </div>
+                        <!-- PAYMENT AND FOLLOW -->
+                        <div class="footer-column col-lg-3 col-sm-6 col-12">
+                            <div class="payment_methods">
+                                <h3 style="color:#fff">WE ACCEPT</h3>
+                                <img src="images/payment-method.png" alt="payment" class="img-responsive">
+                            </div>
+                            <div id="follow" class="follow">
+                                <h3 style="color:#fff">Follow us</h3>
+                                <a href="https://twitter.com/">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://facebook.com/">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://www.instagram.com/">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://youtube.com/">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
