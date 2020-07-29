@@ -142,7 +142,7 @@
             <h4 class="contact-des">We’re ready to provide any information you may need</h4>
             <div class="formsupport">
                 <h3>Contact Form</h3>
-                <form action="localhost:3000/post_contact" id="form" method="POST">
+                <form action="localhost:3000/post_contact" id="form">
 
                 </form>
                 <script>
@@ -190,38 +190,7 @@
                         <button type="submit" class="submit" onclick="sendContact()">SEND</button>
                         `
                     }
-                    function sendContact(){
-                        let email = document.getElementById("email").value;
-                        let name = document.getElementById("username").value;
-                        let phone = document.getElementById("phone").value;
-                        let content = document.getElementById("content").value;
-
-                        let validEmail = document.getElementById("email").validity.valid;
-                        let validName = document.getElementById("username").validity.valid;
-                        let validPhone = document.getElementById("phone").validity.valid;
-                        let validContent = document.getElementById("content").validity.valid;
-
-                        if(isNaN(validPhone)){
-                            validPhone = false
-                        }
-                        let contact = {
-                            email : email,
-                            name : name,
-                            phone : phone,
-                            content : content,
-                        }
-                        if(validEmail && validName && validContent && validPhone){
-                            axios.post(`${host}/post_contact`,contact).then(()=>{
-                                alert("Send contact success ! Thank you !")
-                                location.replace('./home.html')
-                            }).catch((error)=>{
-                                
-                            })
-                        }
-                        
-                        
-                        
-                    }
+                    
                 </script>
                 
             </div>
@@ -230,24 +199,9 @@
         <div id="footer">
 
         </div>
+        <script src="js/send_contact.js"></script>
         <script src="js/footer.js"></script>
-        <script>
-            function search(e) {
-                if (e.keyCode == 13) {
-                    let text = e.target.value;
-                    //console.log(text);
-                    if (!text)
-                        return;
-                    text = text.trim();
-                    var keyword = {
-                        name: text
-                    }
-                    localStorage.setItem('searchKey', text);
-                    e.target.value = '';
-                    location.assign('./search.html');
-                }
-            }
-        </script>
+        <script src="js/search.js"></script>
 </body>
 
 </html>

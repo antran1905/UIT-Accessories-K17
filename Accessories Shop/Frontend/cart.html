@@ -124,7 +124,7 @@
                                                 <td>${item.price}$</td>
                                                 <td>
                                                     <input type="button" class="change sub" value="-">
-                                                    <input type="text" class="value" value="${item.count}">
+                                                    <input type="text" class="value" disabled value="${item.count}">
                                                     <input type="button" class="change plus" value="+">
                                                 </td>
                                                 <td class="total_each_item">${(parseInt(item.count) * parseFloat(item.price)).toFixed(2) + '$'}</td>
@@ -425,22 +425,7 @@
             })
         }
     </script>
-    <script>
-        function search(e) {
-            if (e.keyCode == 13) {
-                let text = e.target.value;
-                if (!text)
-                    return;
-                text = text.trim();
-                var keyword = {
-                    name: text
-                }
-                localStorage.setItem('searchKey', text);
-                e.target.value = '';
-                location.assign('./search.html');
-            }
-        }
-    </script>
+    <script src="js/search.js"></script>
     <script>
         function handleBuy() {
             if (JSON.parse(localStorage.getItem('productCart')).length !== 0 && token) {

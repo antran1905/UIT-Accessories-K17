@@ -130,7 +130,7 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100 p-b-20">
-                    <form class="login100-form validate-form" method="POST" action="localhost:3000/login">
+                    <form class="login100-form validate-form" action="localhost:3000/login">
                         <span class="login100-form-title p-b-70">
                             Welcome
                         </span>
@@ -183,88 +183,23 @@
             
     </div>
     <script src="js/footer.js"></script>
-    <script>
-        function search(e) {
-            if (e.keyCode == 13) {
-                let text = e.target.value;
-                //console.log(text);
-                if (!text)
-                    return;
-                text = text.trim();
-                var keyword = {
-                    name: text
-                }
-                localStorage.setItem('searchKey', text);
-                e.target.value = '';
-                location.assign('./search.html');
-            }
-        }
-    </script>
-    <script>
-        function handleLogin() {     
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var idEmail  = document.getElementById('email').validity.valid;
-            var idPass = document.getElementById('password').validity.valid;
-
-            var login = {
-                email: email,
-                password: password
-            };
-            
-            if(idEmail && idPass){
-                axios.post(`${host}/login`, login).then((result) => {
-                ////console.log(result.data.message.token);
-                //console.log(result.data.success);
-                if(result.data.success && result.data.message.user.role[0] === 'khachhang'){
-                    localStorage.setItem("token", result.data.message.token);
-                    var userInfo = {
-                        userEmail: result.data.message.user.email,
-                        userName: result.data.message.user.name,
-                        userAddress: result.data.message.user.address,
-                        userPhone: result.data.message.user.phone
-                    }
-                    localStorage.setItem('userInfo', JSON.stringify(userInfo));
-                    
-                    
-                    setTimeout(function(){
-                        location.assign(document.referrer);
-                    }, 1200)
-                }
-                else{
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'warning',
-                        title: 'Login failed!',
-                        text : 'Wrong Email or Password !',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                }
-                
-            });
-            }
-            
-
-        }
-    </script>
+    <script src="js/search.js"></script>
+    <script src="js/handle_login.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/library/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="js/animsition.min.js"></script>
+    <script src="js/library/animsition.min.js"></script>
+
+    <script src="js/library/select2.min.js"></script>
     <!--===============================================================================================-->
-    
+    <script src="js/library/moment.min.js"></script>
+    <script src="js/library/daterangepicker.js"></script>
     <!--===============================================================================================-->
-    <script src="js/select2.min.js"></script>
+    <script src="js/library/countdowntime.js"></script>
     <!--===============================================================================================-->
-    <script src="js/moment.min.js"></script>
-    <script src="js/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="js/countdowntime.js"></script>
-    <!--===============================================================================================-->
-    <script src="js/login.js"></script>
+    <script src="js/library/login.js"></script>
 </body>
 
 </html>

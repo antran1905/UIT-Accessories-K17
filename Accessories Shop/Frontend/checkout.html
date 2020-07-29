@@ -179,23 +179,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function search(e) {
-            if (e.keyCode == 13) {
-                let text = e.target.value;
-                ////console.log(text);
-                if (!text)
-                    return;
-                text = text.trim();
-                var keyword = {
-                    name: text
-                }
-                localStorage.setItem('searchKey', text);
-                e.target.value = '';
-                location.assign('./search.html');
-            }
-        }
-    </script>
+    <script src="js/search.js"></script>
     <script>
         function handleCheckout() {
             var name = document.getElementById('billing-name').value;

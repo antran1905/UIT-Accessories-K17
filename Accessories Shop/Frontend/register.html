@@ -117,7 +117,7 @@
         <div class="container">
             <div class="row" style="margin-bottom: 1rem">
                 <div class="col-md-6 register-form">
-                    <form action="localhost:3000/signup" id="formregister" method="POST">
+                    <form action="localhost:3000/signup" id="formregister">
                         <!--User name-->
                         <div class="form-group">
                             <label for="username">User name:</label> 
@@ -163,93 +163,8 @@
             
     </div>
     <script src="js/footer.js"></script>
-    <script>
-        function search(e) {
-            if (e.keyCode == 13) {
-                let text = e.target.value;
-                ////console.log(text);
-                if (!text)
-                    return;
-                text = text.trim();
-                var keyword = {
-                    name: text
-                }
-                localStorage.setItem('searchKey', text);
-                e.target.value = '';
-                location.assign('./search.html');
-            }
-        }
-    </script>
-    <script>
-        
-        function handleSubmit() {
-            var name = document.getElementById('username').value;
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var phone = document.getElementById('phone').value;
-            var address = document.getElementById('address').value;
-            var confirmpw = document.getElementById('repassword').value;
-
-            //console.log(confirmpw)
-
-
-            //Kiểm tra input true hay false
-            var validName = document.getElementById('username').validity.valid;
-            var validEmail = document.getElementById('email').validity.valid;
-            var validPassword = document.getElementById('password').validity.valid;
-            var validPhone = document.getElementById('phone').validity.valid;
-            var validAddress = document.getElementById('address').validity.valid;
-            var validConfirmpw = document.getElementById('repassword').validity.valid;
-            
-            if(isNaN(phone))
-                validPhone = false;
-            if(password === confirmpw)
-                validConfirmpw = true;
-            else
-                validConfirmpw = false;
-            var register = {    
-                name: name,
-                email: email,
-                password: password,
-                phone : phone,
-                address : address,
-                role : 'khachhang',
-
-            }
-            if(validName && validEmail && validPassword && validPhone && validAddress && validConfirmpw){
-                axios.post(`${host}/signup`, register)
-                .then((result) => {
-                    //console.log(result.data.message);
-                    if (result.data.success) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Sign Up Success!',
-                            showConfirmButton: false,
-                            timer: 1200
-                        })
-                        setTimeout(function(){
-                            location.replace('./login.html#login');
-                        }, 1200)
-                        
-                    }
-                    else{
-                        Swal.fire({
-                        position: 'center',
-                        icon: 'warning',
-                        title: 'Registration Failed!!!',
-                        text : 'Account already exists!',
-                        showConfirmButton: false,
-                        timer: 1200
-                    })
-                    }
-                })
-            }
-            
-        }
-
-
-    </script>
+    <script src="js/search.js"></script>
+    <script src="js/handle_signup.js"></script>
 </body>
 
 </html>

@@ -23,7 +23,7 @@
     <link type="text/html" rel="stylesheet" href="logincss/css/util.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="js/jquery2.0.3.min.js"></script>
+    <script src="js/library/jquery2.0.3.min.js"></script>
     <script src="js/host.js"></script>
     <script src="js/checkToken.js"></script>
     
@@ -107,7 +107,7 @@
                             let productById = result.data.data;
                             document.getElementById('adminContent').innerHTML = `
                             <h3 class="title_component">CẬP NHẬT SẢN PHẨM</h3>
-                            <form method="PUT" action="localhost:3000/update_product" class="form-add">
+                            <form action="localhost:3000/update_product" class="form-add">
 
                             <p>Tên sản phẩm</p>
                             <input type="text" class="input_el" placeholder="Nhập tên sản phẩm" id="nameProduct" value="${productById.name}" required>
@@ -151,13 +151,13 @@
         <!--main content end-->
     </section>
     <script src="js/admin_updateproduct.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/jquery.slimscroll.js"></script>
-    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/library/bootstrap.js"></script>
+    <script src="js/library/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="js/library/scripts.js"></script>
+    <script src="js/library/jquery.slimscroll.js"></script>
+    <script src="js/library/jquery.nicescroll.js"></script>
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-    <script src="js/jquery.scrollTo.js"></script>
+    <script src="js/library/jquery.scrollTo.js"></script>
     
 </body>
 

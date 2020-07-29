@@ -10,9 +10,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- //bootstrap-css -->
     <!-- Custom CSS -->
-
     <link rel="stylesheet" href="css/style_admin.css">
     <link rel="stylesheet" href="css/style_admin_responsive.css">
     <!-- font CSS -->
@@ -22,7 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="js/jquery2.0.3.min.js"></script>
+    <script src="js/library/jquery2.0.3.min.js"></script>
 
     <script src="js/checkToken.js"></script>
     <script src="js/host.js"></script>
@@ -103,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             let categoryById = result.data.data;
                             document.getElementById('adminContent').innerHTML = `
                             <h3 class="title_component">CẬP NHẬT LOẠI SẢN PHẨM</h3>
-                            <form action="localhost:3000/insert_category" class="form-add" method="POST">
+                            <form action="localhost:3000/insert_category" class="form-add">
                                 <p>Tên mục sản phẩm</p>
                                 <input type="text" class="input_el" value="${categoryById.name}" id="nameCategory" required>
                                 <p>Mô tả</p>
@@ -127,13 +125,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!--main content end-->
     </section>
     <script src="js/admin_updatecategory.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/jquery.slimscroll.js"></script>
-    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/library/bootstrap.js"></script>
+    <script src="js/library/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="js/library/scripts.js"></script>
+    <script src="js/library/jquery.slimscroll.js"></script>
+    <script src="js/library/jquery.nicescroll.js"></script>
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-    <script src="js/jquery.scrollTo.js"></script>
+    <script src="js/library/jquery.scrollTo.js"></script>
 
 </body>
 
